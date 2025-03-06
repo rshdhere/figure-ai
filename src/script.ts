@@ -2,7 +2,6 @@ import "remixicon/fonts/remixicon.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
-import { AnimationTimeline, ProductState } from "./types";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -34,7 +33,7 @@ const loaderAnimation = (): void => {
     filter: "blur(10px)",
     stagger: {
       amount: 1.2,
-      from: "x",
+      from: "start",
     },
     ease: "power2.out",
   });
@@ -80,7 +79,7 @@ const page2Animation = (): void => {
       trigger: "#page2",
       start: "top center",
       end: "bottom center",
-      scrub: 1,
+      scrub: 1
     }
   });
 };
@@ -95,9 +94,8 @@ const page5Animation = (): void => {
       scroller: "body",
       start: "top 70%",
       end: "top 40%",
-      scrub: 1.5,
-      ease: "power2.out",
-    },
+      scrub: 1.5
+    }
   });
 
   const tl5 = gsap.timeline({
@@ -107,8 +105,8 @@ const page5Animation = (): void => {
       start: "0% 0%",
       end: "200% 0%",
       pin: true,
-      scrub: 2.5,
-    },
+      scrub: 2.5
+    }
   });
 
   // Add page5 timeline animations...
@@ -153,11 +151,11 @@ const page6Animation = (): void => {
     },
   });
 
-  const productState: ProductState = {
-    flag: "product1"
-  };
+  let currentProduct: "product1" | "product2" = "product1";
 
-  const product1 = (): void => {
+  function switchToProduct1(): void {
+    if (currentProduct === "product1") return;
+    
     const tl = gsap.timeline();
     tl.to(".page6-contianer", {
       backgroundImage: "linear-gradient(to bottom right, #FB0408, #ba0407)",
@@ -176,12 +174,32 @@ const page6Animation = (): void => {
       top: "-50%",
       opacity: 1,
     });
-    productState.flag = "product2";
-  };
+    currentProduct = "product2";
+  }
 
-  const product2 = (): void => {
-    // Similar implementation as product1 with proper types
-  };
+  function switchToProduct2(): void {
+    if (currentProduct === "product2") return;
+    
+    const tl = gsap.timeline();
+    tl.to(".page6-contianer", {
+      backgroundImage: "linear-gradient(to bottom right, #0408FB, #0407ba)",
+    }, "a")
+    .to(".page6-product-img2", {
+      top: "-150%",
+      opacity: 0,
+      ease: "power1.in",
+      onComplete: () => {
+        gsap.to(".page6-product-img2", {
+          top: "100%",
+        });
+      },
+    }, "a")
+    .to(".page6-product-img1", {
+      top: "-50%",
+      opacity: 1,
+    });
+    currentProduct = "product1";
+  }
 
   // Add event listeners with proper types
   page6Products.addEventListener("mousemove", (event: MouseEvent) => {
@@ -195,7 +213,12 @@ const page6Animation = (): void => {
     });
   });
 
-  // ... rest of the event listeners and animations
+  // Replace product1/product2 event listeners with new functions
+  const product1Trigger = document.querySelector(".product1-trigger");
+  const product2Trigger = document.querySelector(".product2-trigger");
+
+  product1Trigger?.addEventListener("click", switchToProduct1);
+  product2Trigger?.addEventListener("click", switchToProduct2);
 };
 
 // Initialize animations

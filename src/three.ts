@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/all";
 import * as THREE from "three";
 import { resizeThreeCanvas, calcFov, debounce, lerp } from "./utils";
-import { ScrollState, CursorPosition, MediaObject, UniformObject } from "./types";
+import { ScrollState, CursorPosition, MediaObject } from "./types";
 import effectVertex from "./shader/effectVertex.glsl";
 import effectFragment from "./shader/effectFragment.glsl";
 import { IUniform } from 'three';

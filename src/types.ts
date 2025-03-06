@@ -1,8 +1,33 @@
 import { Mesh, ShaderMaterial, Texture, Vector2 } from 'three';
 import { gsap } from 'gsap';
 
+// Define base types for GSAP
 type GSAPTween = ReturnType<typeof gsap.to>;
-type TweenVars = Parameters<typeof gsap.to>[1];
+
+// Define the base TweenVars type
+interface BaseTweenVars {
+  duration?: number;
+  ease?: string | Function;
+  delay?: number;
+  [key: string]: any;
+}
+
+// Extend BaseTweenVars for ScrollTrigger
+export interface ScrollTriggerVars extends BaseTweenVars {
+  scrollTrigger?: {
+    trigger?: string | Element;
+    start?: string | number | Function;
+    end?: string | number | Function;
+    scrub?: boolean | number;
+    pin?: boolean | string | Element;
+    markers?: boolean;
+    onEnter?: Function;
+    onLeave?: Function;
+    onEnterBack?: Function;
+    onLeaveBack?: Function;
+    scroller?: string | Element;
+  };
+}
 
 export interface ScrollState {
   scrollY: number;
@@ -61,27 +86,10 @@ export interface ProductState {
   flag: 'product1' | 'product2';
 }
 
-export interface ScrollTriggerVars extends TweenVars {
-  scrollTrigger?: {
-    trigger?: string | Element;
-    start?: string | number | Function;
-    end?: string | number | Function;
-    scrub?: boolean | number;
-    pin?: boolean | string | Element;
-    markers?: boolean;
-    onEnter?: Function;
-    onLeave?: Function;
-    onEnterBack?: Function;
-    onLeaveBack?: Function;
-    scroller?: string | Element;
-    ease?: string | Function;
-  };
-}
-
 export interface AnimationTimeline extends GSAPTween {
-  to: (target: string | object, vars: TweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
-  from: (target: string | object, vars: TweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
-  fromTo: (target: string | object, fromVars: TweenVars, toVars: TweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
+  to: (target: string | object, vars: BaseTweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
+  from: (target: string | object, vars: BaseTweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
+  fromTo: (target: string | object, fromVars: BaseTweenVars, toVars: BaseTweenVars | ScrollTriggerVars, position?: string | number) => AnimationTimeline;
   add: (child: AnimationTimeline, position?: string | number) => AnimationTimeline;
-  set: (target: string | object, vars: TweenVars, position?: string | number) => AnimationTimeline;
+  set: (target: string | object, vars: BaseTweenVars, position?: string | number) => AnimationTimeline;
 } 
