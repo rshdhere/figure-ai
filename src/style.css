@@ -115,7 +115,7 @@ body::-webkit-scrollbar-thumb:active {
 
 .main-loader-line {
   position: relative;
-  width: 17vw;
+  width: 17.5vw;
   height: 3px;
 }
 
