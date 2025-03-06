@@ -1,0 +1,30 @@
+{
+  "name": "figure-ai",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@studio-freight/lenis": "^1.0.34",
+    "gsap": "^3.12.5",
+    "remixicon": "^4.1.0",
+    "three": "^0.161.0"
+  },
+  "devDependencies": {
+    "@types/gsap": "^3.0.0",
+    "@types/node": "^20.11.16",
+    "@types/three": "^0.161.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vite-plugin-glsl": "^1.2.1"
+  }
+}
