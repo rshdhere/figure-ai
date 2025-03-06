@@ -1,5 +1,8 @@
 import { Mesh, ShaderMaterial, Texture, Vector2 } from 'three';
-import { GSAPTween, TweenVars } from 'gsap/gsap-core';
+import { gsap } from 'gsap';
+
+type GSAPTween = ReturnType<typeof gsap.to>;
+type TweenVars = Parameters<typeof gsap.to>[1];
 
 export interface ScrollState {
   scrollY: number;

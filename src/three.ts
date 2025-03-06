@@ -6,6 +6,7 @@ import { resizeThreeCanvas, calcFov, debounce, lerp } from "./utils";
 import { ScrollState, CursorPosition, MediaObject, UniformObject } from "./types";
 import effectVertex from "./shader/effectVertex.glsl";
 import effectFragment from "./shader/effectFragment.glsl";
+import { IUniform } from 'three';
 
 gsap.registerPlugin(CustomEase);
 
@@ -146,7 +147,7 @@ const initThree = (): void => {
   // Geometry and material setup
   geometry = new THREE.PlaneGeometry(1, 1, 100, 100);
   
-  const uniforms: UniformObject = {
+  const uniforms: { [key: string]: IUniform<any> } = {
     uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
     uTime: { value: 0 },
     uCursor: { value: new THREE.Vector2(0.5, 0.5) },

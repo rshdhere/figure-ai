@@ -27,7 +27,7 @@ const clutterAnimation = (element: string): void => {
 };
 
 const loaderAnimation = (): void => {
-  const tl: AnimationTimeline = gsap.timeline({ repeat: -1 });
+  const tl = gsap.timeline({ repeat: -1 });
   clutterAnimation(".loader-text>h1");
   tl.from(".loader-text>h1>span", {
     opacity: 0,
@@ -44,7 +44,7 @@ const loaderAnimation = (): void => {
     duration: 4,
     ease: "power2.inOut",
     onComplete: () => {
-      const tl: AnimationTimeline = gsap.timeline();
+      const tl = gsap.timeline();
       tl.to(".c1", {
         top: "-100%",
         duration: 1,
@@ -74,14 +74,14 @@ const loaderAnimation = (): void => {
 const page2Animation = (): void => {
   gsap.to(".page2-video>video", {
     width: "100%",
+    duration: 2,
+    ease: "power2.inOut",
     scrollTrigger: {
-      scroller: "body",
       trigger: "#page2",
-      start: "top 85%",
-      end: "top 0%",
-      scrub: 1.5,
-      ease: "power2.inOut",
-    },
+      start: "top center",
+      end: "bottom center",
+      scrub: 1,
+    }
   });
 };
 
@@ -100,7 +100,7 @@ const page5Animation = (): void => {
     },
   });
 
-  const tl5: AnimationTimeline = gsap.timeline({
+  const tl5 = gsap.timeline({
     scrollTrigger: {
       trigger: "#page5",
       scroller: "body",
@@ -122,6 +122,18 @@ const page5Animation = (): void => {
       backgroundColor: "transparent",
     }, "aa")
     // ... rest of the timeline animations
+
+  gsap.to(".page5-content", {
+    y: 0,
+    duration: 1.5,
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: "#page5",
+      start: "top center",
+      end: "bottom center",
+      scrub: 1,
+    }
+  });
 };
 
 const page6Animation = (): void => {
@@ -146,7 +158,7 @@ const page6Animation = (): void => {
   };
 
   const product1 = (): void => {
-    const tl: AnimationTimeline = gsap.timeline();
+    const tl = gsap.timeline();
     tl.to(".page6-contianer", {
       backgroundImage: "linear-gradient(to bottom right, #FB0408, #ba0407)",
     }, "a")
