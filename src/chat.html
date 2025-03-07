@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>figureAI Chat</title>
+    <link rel="shortcut icon" href="/imgs/Frame 49.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #343541;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100%;
+            background-color: #202123;
+            padding: 10px;
+            color: white;
+        }
+
+        .new-chat {
+            border: 1px solid #4a4b53;
+            padding: 12px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .new-chat:hover {
+            background-color: #2b2c2f;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: calc(100% - 100px);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .input-container {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-box {
+            flex: 1;
+            background-color: #40414f;
+            border: 1px solid #565869;
+            border-radius: 5px;
+            padding: 12px 45px 12px 15px;
+            color: white;
+            font-size: 16px;
+            resize: none;
+            height: 52px;
+            outline: none;
+        }
+
+        .mic-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #40414f;
+            border: 1px solid #565869;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .mic-button.recording {
+            background-color: #ff4a4a;
+            border-color: #ff4a4a;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 74, 74, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 74, 74, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 74, 74, 0);
+            }
+        }
+
+        .recording-status {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff4a4a;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .recording .recording-status {
+            opacity: 1;
+        }
+
+        .error-message {
+            color: #ff4a4a;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .message {
+            padding: 20px;
+            margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .user-message {
+            background-color: #343541;
+        }
+
+        .assistant-message {
+            background-color: #444654;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 2px;
+            background-color: #5436DA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .message-content {
+            color: white;
+            line-height: 1.5;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 15px 0;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #a8a8a8;
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing-bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+
+        .welcome-text {
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .welcome-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .welcome-text p {
+            color: #c5c5d2;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="new-chat">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            New chat
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="welcome-text">
+                <h1>figureAI Assistant</h1>
+                <p>How can I help you today?</p>
+            </div>
+        </div>
+        <div class="input-container">
+            <button class="mic-button">
+                <span class="recording-status">Recording...</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                </svg>
+            </button>
+            <textarea class="input-box" placeholder="Message figureAI..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.querySelector('.input-box');
+        const chatContainer = document.querySelector('.chat-container');
+        const micButton = document.querySelector('.mic-button');
+        let recognition;
+        let isRecording = false;
+        let isWaitingForResponse = false;
+
+        // AI Response Configuration
+        const HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta";
+        const HUGGINGFACE_API_KEY = "hf_DDvUVhhNpjzNXXXXXXXXXXX"; // Replace with your API key
+
+        // System prompt to make the model act like Prisma AI
+        const SYSTEM_PROMPT = `You are Prisma AI, Figure AI's advanced AI assistant specializing in robotics and automation solutions. 
+You help users understand and implement cutting-edge robotics technology. 
+Your responses should be knowledgeable, professional, and focused on robotics and automation.
+Keep responses concise and practical.`;
+
+        async function getAIResponse(userMessage) {
+            const payload = {
+                inputs: `<|system|>${SYSTEM_PROMPT}</s>
+<|user|>${userMessage}</s>
+<|assistant|>`,
+                parameters: {
+                    max_new_tokens: 200,
+                    temperature: 0.7,
+                    top_p: 0.95,
+                    repetition_penalty: 1.15
+                }
+            };
+
+            try {
+                const response = await fetch(HUGGINGFACE_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                return data[0].generated_text.trim();
+            } catch (error) {
+                console.error('AI response error:', error);
+                return "I apologize, but I'm having trouble connecting to my knowledge base right now. Please try again in a moment.";
+            }
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message assistant-message';
+            typingDiv.id = 'typing-indicator';
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.textContent = 'A';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'typing-dot';
+                typingIndicator.appendChild(dot);
+            }
+
+            typingDiv.appendChild(avatar);
+            typingDiv.appendChild(typingIndicator);
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        async function sendMessage(message) {
+            if (message.trim() && !isWaitingForResponse) {
+                isWaitingForResponse = true;
+                
+                // Add user message
+                addMessage('user', message);
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Get AI response
+                const aiResponse = await getAIResponse(message);
+                
+                // Remove typing indicator
+                removeTypingIndicator();
+                
+                // Add AI response
+                addMessage('assistant', aiResponse);
+                
+                textarea.value = '';
+                isWaitingForResponse = false;
+            }
+        }
+
+        // Check if browser supports speech recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                isRecording = true;
+                micButton.classList.add('recording');
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                micButton.classList.remove('recording');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                textarea.value = transcript;
+                // Automatically send the voice message
+                sendMessage(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isRecording = false;
+                micButton.classList.remove('recording');
+                
+                let errorMessage = 'Error capturing voice. Please try again.';
+                if (event.error === 'not-allowed') {
+                    errorMessage = 'Microphone access denied. Please allow microphone access and try again.';
+                } else if (event.error === 'no-speech') {
+                    errorMessage = 'No speech was detected. Please try again.';
+                } else if (event.error === 'network') {
+                    errorMessage = 'Network error occurred. Please check your connection.';
+                }
+                
+                showError(errorMessage);
+            };
+        }
+
+        // Check and request microphone permission
+        async function checkMicrophonePermission() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                stream.getTracks().forEach(track => track.stop()); // Stop the stream after permission check
+                return true;
+            } catch (err) {
+                console.error('Microphone permission error:', err);
+                return false;
+            }
+        }
+
+        micButton.addEventListener('click', async () => {
+            if (!recognition) {
+                showError('Speech recognition is not supported in your browser.');
+                return;
+            }
+
+            // Check if already recording
+            if (isRecording) {
+                recognition.stop();
+                return;
+            }
+
+            // Check microphone permission before starting
+            const hasPermission = await checkMicrophonePermission();
+            if (!hasPermission) {
+                showError('Please allow microphone access to use voice input.');
+                return;
+            }
+
+            try {
+                recognition.start();
+            } catch (err) {
+                console.error('Recognition start error:', err);
+                showError('Error starting voice recognition. Please try again.');
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            chatContainer.insertBefore(errorDiv, chatContainer.firstChild);
+            setTimeout(() => errorDiv.remove(), 3000);
+        }
+
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(textarea.value);
+            }
+        });
+
+        function addMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}-message`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.textContent = role === 'user' ? 'U' : 'A';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html> 
