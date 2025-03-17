@@ -1,6 +1,6 @@
 # Figure.ai Website Redesign & Prisma.ai Feature
 
-[![Watch the video]](https://youtu.be/FN8iu29O4h0)
+[watch demo](https://youtu.be/FN8iu29O4h0)
 
 
 This project delivers a comprehensive redesign of the Figure.ai website with the introduction of an innovative feature called Prisma.ai. The redesign demonstrates advanced UI/UX expertise and was awarded 1st place at the state-level CSI (Computer Society of India) DESIGN-A-THON competition.
