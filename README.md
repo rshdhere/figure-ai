@@ -17,19 +17,24 @@ This project is a complete redesign of the [Figure.ai](https://www.figure.ai/) w
 - **Styling**: Custom CSS
   - *Note: Opted for custom CSS configuration optimized for Three.js integration instead of Tailwind CSS*
 
-## Project Structure
-```
+Project Structure
+Copyfigure-ai/
 ├── src/
-│   ├── components/
-│   ├── scenes/
-│   ├── assets/
-│   ├── utils/
-│   └── main.js
-├── public/
-│   └── models/
-├── index.html
-└── vite.config.js
-```
+│   ├── shader/             # Custom shader files for Three.js
+│   ├── types/              # TypeScript type definitions
+│   ├── chat.html           # Chat feature implementation
+│   ├── index.html          # Main application entry point
+│   ├── script.js           # JavaScript implementation
+│   ├── script.ts           # TypeScript implementation
+│   ├── style.css           # Custom styling
+│   ├── three.js            # Three.js implementation
+│   ├── three.ts            # Three.js TypeScript implementation
+│   ├── types.ts            # Additional TypeScript type definitions
+│   ├── utils.js            # Utility functions
+│   └── utils.ts            # TypeScript utility functions
+├── dist/                   # Distribution build files
+├── package.json            # Project dependencies and scripts
+└── vite.config.js          # Vite configuration
 
 ## Features
 - Responsive design across all device sizes
@@ -37,20 +42,21 @@ This project is a complete redesign of the [Figure.ai](https://www.figure.ai/) w
 - Smooth animations and transitions
 - Optimized performance for complex 3D rendering
 
-## Installation
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/figure-ai-redesign.git
+Installation & Development
+bashCopy# Clone the repository
+git clone https://github.com/rshdhere/figure-ai.git
 
 # Navigate to project directory
-cd figure-ai-redesign
+cd figure-ai
 
 # Install dependencies
 npm install
 
 # Run development server
 npm run dev
-```
+
+# Build for production
+npm run build
 
 ## Screenshots
 [Add screenshot placeholders here]
