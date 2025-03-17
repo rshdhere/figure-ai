@@ -75,7 +75,7 @@ npm run build
 MIT License - see [LICENSE](LICENSE) file for details
 
 ## Author
-[Mohammed Raashed]
+Mohammed Raashed
 
 ## Acknowledgements
 * [Computer Society of India](https://www.csi-india.org/) for hosting the DESIGN-A-THON
