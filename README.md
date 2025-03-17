@@ -1,6 +1,5 @@
 # Figure.ai Website Redesign & Prisma.ai Feature
 
-## Overview
 This project delivers a comprehensive redesign of the Figure.ai website with the introduction of an innovative feature called Prisma.ai. The redesign demonstrates advanced UI/UX expertise and was awarded 1st place at the state-level CSI (Computer Society of India) DESIGN-A-THON competition.
 
 ## Project Highlights
@@ -12,7 +11,7 @@ This project delivers a comprehensive redesign of the Figure.ai website with the
 ## Tech Stack
 * **Build Tool**: Vite - for lightning-fast development and optimized production builds
 * **Languages**: JavaScript/TypeScript - ensuring type safety and code maintainability
-* **3D Rendering**: Three.js
+* **3D Rendering**: Three.js & GSAP
    * *Note: Chose Three.js over React Three Fiber due to stability considerations for complex 3D implementations*
 * **Styling**: Custom CSS
    * *Note: Opted for custom CSS configuration optimized for Three.js integration instead of Tailwind CSS to maximize performance*
@@ -41,7 +40,7 @@ figure-ai/
 ## Features
 * **Responsive Design**: Seamless experience across all device sizes from mobile to desktop
 * **Interactive 3D Elements**: Dynamic, interactive 3D components that enhance user engagement
-* **Smooth Animations**: Carefully crafted animations and transitions for a polished user experience
+* **Smooth Animations**: Carefully crafted animations and transitions for a polished user experience using GSAP
 * **Performance Optimization**: Specially tuned for complex 3D rendering without sacrificing speed
 
 ## Installation & Development
