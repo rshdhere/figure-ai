@@ -1,49 +1,52 @@
 # Figure.ai Website Redesign & Prisma.ai Feature
 
 ## Overview
-This project is a complete redesign of the [Figure.ai](https://www.figure.ai/) website with the introduction of a new feature called Prisma.ai. The redesign showcases advanced UI/UX skills and was awarded 1st place at the state-level CSI (Computer Society of India) DESIGN-A-THON.
+This project delivers a comprehensive redesign of the Figure.ai website with the introduction of an innovative feature called Prisma.ai. The redesign demonstrates advanced UI/UX expertise and was awarded 1st place at the state-level CSI (Computer Society of India) DESIGN-A-THON competition.
 
 ## Project Highlights
-- **Complete UI/UX Overhaul**: Reimagined the entire Figure.ai website interface with modern design principles
-- **Prisma.ai Feature**: Conceptualized and designed a new feature (design-only implementation)
-- **Award-Winning**: 1st place winner at CSI DESIGN-A-THON at the state level
-- **Interactive 3D Elements**: Implemented engaging 3D components using Three.js
+* **Complete UI/UX Overhaul**: Reimagined the entire Figure.ai website interface with modern design principles and cutting-edge aesthetics
+* **Prisma.ai Feature**: Conceptualized and designed a revolutionary new feature that enhances user interaction (design-only implementation)
+* **Award-Winning**: Secured 1st place at CSI DESIGN-A-THON at the state level, recognized for innovation and execution
+* **Interactive 3D Elements**: Implemented engaging and immersive 3D components using Three.js for a next-generation user experience
 
 ## Tech Stack
-- **Build Tool**: Vite
-- **Languages**: JavaScript/TypeScript
-- **3D Rendering**: Three.js
-  - *Note: Chose Three.js over React Three Fiber due to stability considerations*
-- **Styling**: Custom CSS
-  - *Note: Opted for custom CSS configuration optimized for Three.js integration instead of Tailwind CSS*
+* **Build Tool**: Vite - for lightning-fast development and optimized production builds
+* **Languages**: JavaScript/TypeScript - ensuring type safety and code maintainability
+* **3D Rendering**: Three.js
+   * *Note: Chose Three.js over React Three Fiber due to stability considerations for complex 3D implementations*
+* **Styling**: Custom CSS
+   * *Note: Opted for custom CSS configuration optimized for Three.js integration instead of Tailwind CSS to maximize performance*
 
-Project Structure
-Copyfigure-ai/
+## Project Structure
+```
+figure-ai/
 ├── src/
-│   ├── shader/             # Custom shader files for Three.js
-│   ├── types/              # TypeScript type definitions
-│   ├── chat.html           # Chat feature implementation
-│   ├── index.html          # Main application entry point
-│   ├── script.js           # JavaScript implementation
-│   ├── script.ts           # TypeScript implementation
-│   ├── style.css           # Custom styling
-│   ├── three.js            # Three.js implementation
-│   ├── three.ts            # Three.js TypeScript implementation
-│   ├── types.ts            # Additional TypeScript type definitions
-│   ├── utils.js            # Utility functions
-│   └── utils.ts            # TypeScript utility functions
-├── dist/                   # Distribution build files
-├── package.json            # Project dependencies and scripts
-└── vite.config.js          # Vite configuration
+│   ├── shader/           # Custom shader files for Three.js
+│   ├── types/            # TypeScript type definitions
+│   ├── chat.html         # Chat feature implementation
+│   ├── index.html        # Main application entry point
+│   ├── script.js         # JavaScript implementation
+│   ├── script.ts         # TypeScript implementation
+│   ├── style.css         # Custom styling
+│   ├── three.js          # Three.js implementation
+│   ├── three.ts          # Three.js TypeScript implementation
+│   ├── types.ts          # Additional TypeScript type definitions
+│   ├── utils.js          # Utility functions
+│   └── utils.ts          # TypeScript utility functions
+├── dist/                 # Distribution build files
+├── package.json          # Project dependencies and scripts
+└── vite.config.js        # Vite configuration
+```
 
 ## Features
-- Responsive design across all device sizes
-- Interactive 3D elements that enhance user engagement
-- Smooth animations and transitions
-- Optimized performance for complex 3D rendering
+* **Responsive Design**: Seamless experience across all device sizes from mobile to desktop
+* **Interactive 3D Elements**: Dynamic, interactive 3D components that enhance user engagement
+* **Smooth Animations**: Carefully crafted animations and transitions for a polished user experience
+* **Performance Optimization**: Specially tuned for complex 3D rendering without sacrificing speed
 
-Installation & Development
-bashCopy# Clone the repository
+## Installation & Development
+```bash
+# Clone the repository
 git clone https://github.com/rshdhere/figure-ai.git
 
 # Navigate to project directory
@@ -57,14 +60,21 @@ npm run dev
 
 # Build for production
 npm run build
+```
 
-## Screenshots
-[Add screenshot placeholders here]
 
 ## Future Improvements
-- Implementation of the Prisma.ai feature beyond the design phase
-- Potential migration to React when React Three Fiber stability improves
-- Additional interactive elements and animations
+* Implementation of the Prisma.ai feature beyond the design phase
+* Potential migration to React when React Three Fiber stability improves
+* Additional interactive elements and animations
+* Performance optimizations for lower-end devices
 
 ## License
-[Your chosen license]
+MIT License - see [LICENSE](LICENSE) file for details
+
+## Author
+[Mohammed Raashed]
+
+## Acknowledgements
+* [Computer Society of India](https://www.csi-india.org/) for hosting the DESIGN-A-THON
+* [Figure.ai](https://www.figure.ai/) for inspiration
