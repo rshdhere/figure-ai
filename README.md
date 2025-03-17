@@ -1,6 +1,5 @@
 # Figure.ai Website Redesign & Prisma.ai Feature
 
-https://youtu.be/FN8iu29O4h0
 [![Watch the video]](https://youtu.be/FN8iu29O4h0)
 
 
